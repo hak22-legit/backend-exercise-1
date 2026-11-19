@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -58,11 +59,13 @@ public class Course {
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
-    @Column(nullable = false)
-    private Integer categoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    @Column(nullable = false)
-    private String instructorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "instructor_id", referencedColumnName = "user_id")
+    private InstructorProfile instructor;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -70,5 +73,11 @@ public class Course {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "course")
+    private List<Video> videos;
+
+    @OneToMany(mappedBy = "course")
+    private List<Enrollment> enrollments;
 
 }

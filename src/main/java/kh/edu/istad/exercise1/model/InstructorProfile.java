@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,8 +19,9 @@ public class InstructorProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, unique = true)
-    private Integer userId;
+    @Id
+    @Column(name = "user_id")
+    private String userId;
 
     @Column(columnDefinition = "TEXT")
     private String biography;
@@ -33,5 +36,8 @@ public class InstructorProfile {
     @Column(length = 30)
     private String phoneNumber;
 
+
+    @OneToMany(mappedBy = "instructor")
+    private List<Course> courses;
 
 }

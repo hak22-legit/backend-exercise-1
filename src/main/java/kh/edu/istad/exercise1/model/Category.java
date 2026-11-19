@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,4 +27,7 @@ public class Category {
 
     @Column(nullable = false)
     private Boolean isDelete;
+
+    @OneToMany(mappedBy = "category")
+    private List<Course> courses;
 }
