@@ -1,11 +1,13 @@
 package kh.edu.istad.exercise1.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,5 +16,26 @@ import lombok.Setter;
 @Table(name = "enrollments")
 public class Enrollment {
 
-    private 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime enrolledAt;
+
+    private LocalDateTime paymentAt;
+
+    @Column(length = 50)
+    private String paymentMethod;
+
+    @Column(nullable = false)
+    private Boolean paymentStatus = false;
+
+    @Column(name = "course_id", nullable = false)
+    private Integer courseId;
+
+    @Column(name = "student_id", nullable = false)
+    private Integer studentId;
+
 }
